@@ -1,0 +1,153 @@
+{
+  "users": [
+    {
+      "id": "1741515747828",
+      "firstName": "gg",
+      "lastName": "gg",
+      "email": "gggourav@gmail.com",
+      "password": "$2a$10$VbmzMQNjBWrtMVdfXptHeeIyY67SBxCPVQGRl4/u3.uKtoMIEFZEC",
+      "profileImagePath": "uploads/Screenshot 2023-11-23 181907.png",
+      "tripList": [],
+      "wishList": [],
+      "propertyList": [],
+      "reservationList": []
+    },
+    {
+      "id": "1741538278521",
+      "firstName": "Bhavik",
+      "lastName": "Kumar",
+      "email": "bhavik@gmail.com",
+      "password": "$2a$10$obc7IXev4gU0rNH0dEIOqekDDBMgo0TlHqzxsxnr29z6eySPTk.U.",
+      "profileImagePath": "uploads/John Smiths.jpg",
+      "tripList": [],
+      "wishList": [],
+      "propertyList": [],
+      "reservationList": []
+    },
+    {
+      "id": "1741591114885",
+      "firstName": "Deewanshi",
+      "lastName": "Gujral",
+      "email": "dishu@gmail.com",
+      "password": "$2a$10$bWHb7FgqyD7pBmKTgwWP7O/ip.b49mvnHqpZBUuJ/9TlFZ4DBo8VK",
+      "profileImagePath": "uploads/denny.jpeg",
+      "tripList": [],
+      "wishList": [],
+      "propertyList": [],
+      "reservationList": []
+    }
+  ],
+  "listing": [
+    {
+      "id": "31eb45f6-f421-443b-8b51-63e24210e780",
+      "creator": "1741515747828",
+      "category": "Beachfront",
+      "type": "Room(s)",
+      "streetAddress": "12345",
+      "aptSuite": "asdfgh",
+      "city": "asdfgh",
+      "province": "asdf",
+      "country": "xcvb",
+      "guestCount": "1",
+      "bedroomCount": "1",
+      "bedCount": "1",
+      "bathroomCount": "1",
+      "amenities": "[\"TV\",\"Fire extinguisher\"]",
+      "listingPhotoPaths": [
+        "public\\uploads\\porsche-911-gt3-r-7680x6336-13738.jpg",
+        "public\\uploads\\Screenshot 2023-11-23 181907.png",
+        "public\\uploads\\wallpaperflare.com_wallpaper (4).jpg",
+        "public\\uploads\\wallpaperflare.com_wallpaper (64).jpg"
+      ],
+      "title": "wer",
+      "description": "sdfghj",
+      "highlight": "asdfghj",
+      "highlightDesc": "qwerh",
+      "price": "1000"
+    },
+    {
+      "id": "3710c10e-ff04-4b16-8293-61dcd0602cff",
+      "creator": "1741515747828",
+      "category": "Beachfront",
+      "type": "An entire place",
+      "streetAddress": "1234",
+      "aptSuite": "asdfg",
+      "city": "dffg",
+      "province": "jhg",
+      "country": "uygc",
+      "guestCount": "2",
+      "bedroomCount": "1",
+      "bedCount": "1",
+      "bathroomCount": "1",
+      "amenities": "[\"Bath tub\",\"Washer\",\"Dryer\",\"TV\"]",
+      "listingPhotoPaths": [
+        "public\\uploads\\porsche-911-gt3-r-7680x6336-13738.jpg",
+        "public\\uploads\\Screenshot 2023-11-23 181907.png",
+        "public\\uploads\\wallpaperflare.com_wallpaper (4).jpg",
+        "public\\uploads\\wallpaperflare.com_wallpaper (64).jpg"
+      ],
+      "title": "qwerty",
+      "description": "fgioih",
+      "highlight": "dfghjkkj",
+      "highlightDesc": "dfghjh",
+      "price": "1000"
+    },
+    {
+      "id": "b2db929e-ffdb-4d61-a5f3-c161314ba6b9",
+      "creator": "1741538278521",
+      "category": "Camping",
+      "type": "An entire place",
+      "streetAddress": "12345",
+      "aptSuite": "abc",
+      "city": "def",
+      "province": "ghi",
+      "country": "xyz",
+      "guestCount": "10",
+      "bedroomCount": "5",
+      "bedCount": "5",
+      "bathroomCount": "6",
+      "amenities": "[\"Bath tub\",\"TV\",\"Wifi\",\"Air Conditioning\",\"Dryer\",\"Refrigerator\",\"Outdoor shower\",\"Fire extinguisher\",\"Security cameras\",\"Barbecue grill\"]",
+      "listingPhotoPaths": [
+        "public\\uploads\\arctic_cat.webp",
+        "public\\uploads\\beach_cat.jpg",
+        "public\\uploads\\camping_cat.jpg",
+        "public\\uploads\\castle_cat.webp",
+        "public\\uploads\\cave_cat.jpg",
+        "public\\uploads\\countryside_cat.webp"
+      ],
+      "title": "abcd",
+      "description": "qwertyuiop",
+      "highlight": "wsxcdwefv",
+      "highlightDesc": "dnjcdncjjsdncjnscscjdied",
+      "price": "10000"
+    },
+    {
+      "id": "dbc101cb-b920-476b-b489-f62994f90254",
+      "creator": "1741591114885",
+      "category": "Countryside",
+      "type": "An entire place",
+      "streetAddress": "7894",
+      "aptSuite": "qwertyu",
+      "city": "ldh",
+      "province": "g ygvhn",
+      "country": "india",
+      "guestCount": "6",
+      "bedroomCount": "6",
+      "bedCount": "6",
+      "bathroomCount": "8",
+      "amenities": "[\"Bath tub\",\"TV\",\"Personal care products\",\"Wifi\",\"Cooking set\",\"Outdoor dining area\",\" Pet allowed\"]",
+      "listingPhotoPaths": [
+        "public\\uploads\\lake_cat.webp",
+        "public\\uploads\\lux_cat.jpg",
+        "public\\uploads\\modern_cat.webp",
+        "public\\uploads\\slide.jpg"
+      ],
+      "title": "qwertyuioplkhgf",
+      "description": "dv gfgzergvbgbr",
+      "highlight": "fragvzfegv",
+      "highlightDesc": "ggegv",
+      "price": "2500"
+    }
+  ],
+  "bookings": []
+}
