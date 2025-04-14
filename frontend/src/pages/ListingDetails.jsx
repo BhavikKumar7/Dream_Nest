@@ -54,6 +54,7 @@ const ListingDetails = () => {
   const customerId = useSelector((state) => state?.user?.id);
 
   const handleSubmit = async () => {
+    console.log("Booking button clicked");
     try {
       const bookingForm = {
         customerId,
@@ -71,9 +72,10 @@ const ListingDetails = () => {
         },
         body: JSON.stringify(bookingForm),
       });
-
       if (response.ok) {
         navigate(`/${customerId}/trips`);
+      } else {
+        console.log("Booking request failed", response.status);
       }
     } catch (err) {
       console.log("Submit Booking Failed.", err.message);
@@ -113,11 +115,14 @@ const ListingDetails = () => {
 
         <div className="profile">
           <img
-            src={`http://localhost:3001/${listing.creator.profileImagePath.replace(
-              "public",
-              ""
-            )}`}
+            src={
+              listing?.creator?.profileImagePath
+                ? `http://localhost:3001/${listing.creator.profileImagePath.replace("public", "")}`
+                : "/default-avatar.png"
+            }
+            alt="host"
           />
+
           <h3>
             Hosted by {listing.creator.firstName} {listing.creator.lastName}
           </h3>
@@ -136,18 +141,16 @@ const ListingDetails = () => {
           <div>
             <h2>What this place offers?</h2>
             <div className="amenities">
-              {listing.amenities[0].split(",").map((item, index) => (
+              {JSON.parse(listing.amenities).map((item, index) => (
                 <div className="facility" key={index}>
                   <div className="facility_icon">
-                    {
-                      facilities.find((facility) => facility.name === item)
-                        ?.icon
-                    }
+                    {facilities.find((facility) => facility.name === item)?.icon}
                   </div>
                   <p>{item}</p>
                 </div>
               ))}
             </div>
+
           </div>
 
           <div>
@@ -173,9 +176,14 @@ const ListingDetails = () => {
               <h2>Total price: ${listing.price * dayCount}</h2>
               <p>Start Date: {startDate.toDateString()}</p>
               <p>End Date: {endDate.toDateString()}</p>
-
-
-              <button className="button" type="submit" onClick={handleSubmit}>
+              <button
+                className="button"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSubmit();
+                }}
+              >
                 BOOKING
               </button>
             </div>

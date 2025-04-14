@@ -55,7 +55,7 @@
 
       label {
         display: flex;
-        flex-direction: column;
+        // flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 9px;
@@ -93,3 +93,20 @@
     }
   }
 }
+/* Add this to your Register.scss */
+.role-selection {
+  display: flex;
+  flex-direction: column; /* Ensures the labels are stacked vertically */
+  margin-top: 20px;
+}
+
+.role-selection label {
+  display: inline-flex; /* Keep the radio button and label text on the same line */
+  align-items: center;  /* Aligns the radio button and text vertically */
+  margin-bottom: 10px;   /* Adds space between each radio option */
+}
+
+.role-selection input {
+  margin-right: 10px;  /* Adds space between the radio button and label text */
+}
+

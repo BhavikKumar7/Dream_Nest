@@ -1,7 +1,6 @@
 import "../styles/CreateListing.scss";
 import Navbar from "../components/Navbar";
 import { categories, types, facilities } from "../data";
-
 import { RemoveCircleOutline, AddCircleOutline } from "@mui/icons-material";
 import variables from "../styles/variables.scss";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
@@ -126,7 +125,7 @@ const CreateListing = () => {
       });
 
       if (response.ok) {
-        navigate("/");
+        navigate("/host-dashboard");
       }
     } catch (err) {
       console.log("Publish Listing failed", err.message);

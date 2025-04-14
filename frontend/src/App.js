@@ -9,9 +9,13 @@ import ListingDetails from "./pages/ListingDetails";
 import TripList from "./pages/TripList";
 import WishList from "./pages/WishList";
 import PropertyList from "./pages/PropertyList";
-import ReservationList from "./pages/ReservationList";
 import CategoryPage from "./pages/CategoryPage";
 import SearchPage from "./pages/SearchPage";
+import EditListing from "./pages/EditListing";
+import HostDashboard from "./pages/HostDashboard";
+import UserDashboard from "./pages/UserDashboard";
+import ReservationList from "./pages/ReservationList";
+import adminDashboard from "./pages/adminDashboard";
 
 function App() {
   return (
@@ -29,6 +33,10 @@ function App() {
           <Route path="/:userId/wishList" element={<WishList />} />
           <Route path="/:userId/properties" element={<PropertyList />} />
           <Route path="/:userId/reservations" element={<ReservationList />} />
+          <Route path="/edit/:id" element={<EditListing />} />
+          <Route path="/host-dashboard" element={<HostDashboard />} />
+          <Route path="/user-dashboard" element={<UserDashboard />} />
+          <Route path="/admin-dashboard" element={<adminDashboard />} />
         </Routes>
       </BrowserRouter>
     </div>

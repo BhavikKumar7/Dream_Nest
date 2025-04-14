@@ -16,6 +16,8 @@ const loadData = async () => {
     if (Array.isArray(data.listings)) listings = data.listings;
     if (Array.isArray(data.bookings)) bookings = data.bookings;
 
+    console.log(users);
+
     console.log("Data loaded successfully.");
   } catch (err) {
     if (err.code === "ENOENT") {
@@ -25,6 +27,8 @@ const loadData = async () => {
       console.error("Error loading data from file:", err.message);
     }
   }
+
+  return {users, listings, bookings};
 };
 
 const saveData = async () => {
@@ -39,4 +43,4 @@ const saveData = async () => {
 
 loadData();
 
-module.exports = { users, listings, bookings, saveData };
+module.exports = { saveData,loadData };

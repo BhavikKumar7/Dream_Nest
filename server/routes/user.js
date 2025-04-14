@@ -1,31 +1,55 @@
 const express = require("express");
 const router = express.Router();
-const { users, listings, bookings, saveData } = require("../data.js");
+const fs = require("fs").promises;
+const path = require("path");
+const { saveData, loadData } = require("../data.js");
+const { error } = require("console");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
-router.get("/:userId/trips", (req, res) => {
+router.get("/:userId/trips", async (req, res) => {
   try {
     const { userId } = req.params;
-    const trips = bookings.filter((booking) => booking.customerId === userId);
-    const populatedTrips = trips.map((trip) => {
-      const listing = listings.find((listing) => listing.id === trip.listingId);
-      const host = users.find((user) => user.id === trip.hostId);
+    const { users, listings } = await loadData();
+    const user = users.find((u => u.id === userId));
 
-      return {
-        ...trip,
-        listingId: listing,
-        hostId: host,
-      };
-    });
-
-    res.status(200).json(populatedTrips);
+    console.log(user);
+    res.status(200).json(user.tripList);
   } catch (err) {
     console.log(err);
-    res.status(404).json({ message: "Can not find trips!", error: err.message });
+    res.status(500).json({ message: "Can not find trips!", error: err.message });
   }
 });
 
-router.patch("/:userId/:listingId", (req, res) => {
+router.delete("/:userId/trips/:tripId", async (req, res) => {
   try {
+    const { userId, tripId } = req.params;
+    const { users, bookings } = await loadData();
+
+    const user = users.find((u) => u.id === userId);
+    if (!user) return res.status(404).json({ message: "User not found!" });
+
+    const originalTripLength = user.tripList?.length || 0;
+
+    user.tripList = user.tripList.filter((trip) => trip.id !== tripId);
+    const updatedBookings = bookings.filter((booking) => booking.id !== tripId);
+
+    if (user.tripList.length === originalTripLength) {
+      return res.status(404).json({ message: "Trip not found or already cancelled." });
+    }
+
+    await saveData({ users, bookings: updatedBookings });
+
+    res.status(200).json({ message: "Trip cancelled successfully!" });
+  } catch (err) {
+    console.error("Error cancelling trip:", err);
+    res.status(500).json({ message: "Internal server error", error: err.message });
+  }
+});
+
+router.patch("/:userId/:listingId", async (req, res) => {
+  try {
+    const { users, listings } = await loadData();
     const { userId, listingId } = req.params;
     const user = users.find((user) => user.id === userId);
     if (!user) {
@@ -52,9 +76,10 @@ router.patch("/:userId/:listingId", (req, res) => {
   }
 });
 
-router.get("/:userId/properties", (req, res) => {
+router.get("/:userId/properties", async(req, res) => {
   try {
     const { userId } = req.params;
+    const { users, listings } = await loadData();
     const properties = listings.filter((listing) => listing.creator === userId);
 
     res.status(200).json(properties);
@@ -64,28 +89,32 @@ router.get("/:userId/properties", (req, res) => {
   }
 });
 
-router.get("/:userId/reservations", (req, res) => {
+router.get("/:userId/reservations", async (req, res) => {
   try {
     const { userId } = req.params;
+    const { bookings, listings, users } = await loadData();
 
+    // Filter bookings where the host is the user
     const reservations = bookings.filter((booking) => booking.hostId === userId);
 
-    const populatedReservations = reservations.map((reservation) => {
-      const customer = users.find((user) => user.id === reservation.customerId);
-      const listing = listings.find((listing) => listing.id === reservation.listingId);
-
+    // Optionally enrich the booking data with listing info
+    const enrichedReservations = reservations.map((booking) => {
+      const listing = listings.find((l) => l.id === booking.listingId);
+      const customer = users.find((u) => u.id === booking.customerId);
       return {
-        ...reservation,
-        customerId: customer,
-        listingId: listing,
+        ...booking,
+        listing,
+        customer: customer ? { id: customer.id, name: customer.name, email: customer.email } : null
       };
     });
 
-    res.status(200).json(populatedReservations);
+    res.status(200).json(enrichedReservations);
   } catch (err) {
-    console.log(err);
-    res.status(404).json({ message: "Can not find reservations!", error: err.message });
+    console.error("Error fetching reservations:", err);
+    res.status(500).json({ message: "Can not find reservations!", error: err.message });
   }
 });
 
+
+router.get("/", (req, res) => { res.json({ hi: "hi" }) });
 module.exports = router;

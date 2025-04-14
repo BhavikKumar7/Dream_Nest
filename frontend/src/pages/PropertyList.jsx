@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import { setPropertyList } from "../redux/state";
 import Loader from "../components/Loader";
 import Footer from "../components/Footer"
-
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const PropertyList = () => {
+  const { id } = useParams();
   const [loading, setLoading] = useState(true)
   const user = useSelector((state) => state.user)
   const propertyList = user?.propertyList;
@@ -39,9 +39,24 @@ const PropertyList = () => {
     }
   };
 
+  const handleDeleteProperty = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3001/properties/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) throw new Error("Failed to delete listing");
+      // Refresh property list
+      getPropertyList();
+    } catch (err) {
+      console.error("Error deleting listing:", err.message);
+    }
+  };
+
+
   useEffect(() => {
     getPropertyList()
-  }, [])
+  }, [getPropertyList])
 
   return loading ? <Loader /> : (
     <>
@@ -73,6 +88,9 @@ const PropertyList = () => {
                 type={type}
                 price={price}
                 booking={booking}
+                onDelete={handleDeleteProperty}
+                onEdit={() => navigate(`/edit/${id}`)}
+                hideBooking={true}
               />
             )
           )
