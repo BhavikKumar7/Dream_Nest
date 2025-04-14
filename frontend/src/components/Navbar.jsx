@@ -187,6 +187,23 @@ const Navbar = () => {
               </>
             )}
 
+            {user.role === "guest" && (
+              <>
+                <Link to={`/${user.id}/trips`}>Trip List</Link>
+                <Link to={`/${user.id}/wishList`}>Wish List</Link>
+                <Link to="/create-listing">Create Listing</Link>
+                <Link to={`/${user.id}/properties`}>Property List</Link>
+                <Link to={`/${user.id}/reservations`}>Booking List</Link>
+              </>
+            )}
+
+            {user.role === "Admin" && (
+              <>
+                <Link to={`/admin/users`}>User's List</Link>
+                <Link to={`/admin/hosts`}>Host's List</Link>
+              </>
+            )}
+
             {/* User-specific links */}
             {user.role === "user" && (
               <>

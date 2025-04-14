@@ -176,7 +176,7 @@ const ListingDetails = () => {
               <h2>Total price: ${listing.price * dayCount}</h2>
               <p>Start Date: {startDate.toDateString()}</p>
               <p>End Date: {endDate.toDateString()}</p>
-              <button
+              {/* <button
                 className="button"
                 type="button"
                 onClick={(e) => {
@@ -185,7 +185,24 @@ const ListingDetails = () => {
                 }}
               >
                 BOOKING
-              </button>
+              </button> */}
+              {/* Conditional Rendering based on user state */}
+              {user?.role === "user" ? (
+                <button
+                  className="button"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSubmit();
+                  }}
+                >
+                  BOOKING
+                </button>
+              ) : (
+                <div className="unauthorized">
+                  <p className="message"><strong>You are logged in as a guest. Please login as a user to make BOOKINGS.</strong></p>
+                </div>
+              )}
             </div>
           </div>
         </div>

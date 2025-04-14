@@ -1,11 +1,14 @@
-import React from 'react'
-
-const adminDashboard = () => {
+import React from 'react';
+import Navbar from '../components/Navbar';
+import Slide from '../components/Slide';
+import Footer from '../components/Footer';
+const AdminDashboard = () => {
   return (
-    <div>
-      
-    </div>
-  )
-}
-
-export default adminDashboard
+    <>
+      <Navbar />
+      <Slide />
+      <Footer />
+    </>
+  );
+};
+export default AdminDashboard;

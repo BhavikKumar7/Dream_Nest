@@ -258,7 +258,28 @@ const RegisterPage = () => {
               />
               Host
             </label>
+            {/* <label>
+              <input
+                type="radio"
+                name="role"
+                value="Admin"
+                checked={formData.role === "Admin"}
+                onChange={handleChange}
+              />
+              Admin
+            </label> */}
+            {/* <label>
+              <input
+                type="radio"
+                name="role"
+                value="guest"
+                checked={formData.role === "guest"}
+                onChange={handleChange}
+              />
+              guest
+            </label> */}
           </div>
+
 
           {/* ✅ Profile Image Upload */}
           <input

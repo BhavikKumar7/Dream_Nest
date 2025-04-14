@@ -15,7 +15,11 @@ import EditListing from "./pages/EditListing";
 import HostDashboard from "./pages/HostDashboard";
 import UserDashboard from "./pages/UserDashboard";
 import ReservationList from "./pages/ReservationList";
-import adminDashboard from "./pages/adminDashboard";
+import AdminDashboard from "./pages/adminDashboard";
+import UserList from "./pages/UserList";
+import HostList from "./pages/HostList";
+import UserBookings from "./pages/UserBookings";
+import HostListings from "./pages/HostListings";
 
 function App() {
   return (
@@ -36,7 +40,11 @@ function App() {
           <Route path="/edit/:id" element={<EditListing />} />
           <Route path="/host-dashboard" element={<HostDashboard />} />
           <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route path="/admin-dashboard" element={<adminDashboard />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/users" element={<UserList/>} />
+          <Route path="/admin/hosts" element={<HostList />} />
+          <Route path="/admin/users/:userId/bookings" element={<UserBookings />} />
+          <Route path="/admin/hosts/:hostId/listings" element={<HostListings />} />
         </Routes>
       </BrowserRouter>
     </div>

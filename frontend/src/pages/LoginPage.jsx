@@ -79,16 +79,14 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleLogin = async (loginEmail, loginPassword) => {
     try {
       const response = await fetch("http://localhost:3001/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
       });
 
       const loggedIn = await response.json();
@@ -103,13 +101,15 @@ const LoginPage = () => {
           })
         );
 
-        // ✅ Role-based navigation
         if (user.role === "host") {
           navigate("/host-dashboard");
         } else if (user.role === "user") {
           navigate("/user-dashboard");
-        }else {
+        } else if (user.role === "Admin") {
+          navigate("/admin-dashboard"); // ✅ fixed path casing here
+        } else {
           navigate("/"); // fallback
+          console.log(user.role);
         }
       } else {
         console.log("Login failed: Invalid credentials or server issue.");
@@ -117,6 +117,16 @@ const LoginPage = () => {
     } catch (err) {
       console.log("Login failed", err.message);
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(email, password);
+  };
+
+  const handleGuestLogin = () => {
+    // Use predefined guest credentials
+    handleLogin("Guest@guest.com", "guest@123");
   };
 
   return (
@@ -138,6 +148,9 @@ const LoginPage = () => {
             required
           />
           <button type="submit">LOG IN</button>
+          <button type="button" onClick={handleGuestLogin} className="guest-login-btn">
+            LOGIN AS GUEST
+          </button>
         </form>
         <a href="/register">Don't have an account? Sign In Here</a>
       </div>

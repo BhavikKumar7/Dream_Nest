@@ -1,14 +1,6 @@
 {
   "users": [
     {
-      "id": "admin",
-      "firstName": "Admin",
-      "lastName": "User",
-      "email": "admin@admin.com",
-      "password": "$2a$10$Zl8Neqldf5mcTHATy0S0T.L3bdouSzq5IuoxikF0F5bL9kYZ/0Odm",
-      "role": "admin"
-    },
-    {
       "id": "1741515747828",
       "firstName": "gg",
       "lastName": "gg",
@@ -135,6 +127,15 @@
           "startDate": "Sun Apr 13 2025",
           "endDate": "Sun Apr 27 2025",
           "totalPrice": 70000
+        },
+        {
+          "id": "a3af43f7-c443-4c30-8762-9af477fbf1f4",
+          "customerId": "1744540737659",
+          "hostId": "1744552242321",
+          "listingId": "587dead4-4973-4a07-a49e-cf4498ff28ee",
+          "startDate": "Mon Apr 14 2025",
+          "endDate": "Tue Apr 15 2025",
+          "totalPrice": 4000
         }
       ],
       "wishList": [
@@ -177,6 +178,32 @@
       "password": "$2a$10$P2gnFdv8ptlnBtmmeD14MOmGKEIDkijw8Nyp.Hthq7WN8eRlUieYa",
       "profileImagePath": "uploads/denny.jpeg",
       "role": "host",
+      "tripList": [],
+      "wishList": [],
+      "propertyList": [],
+      "reservationList": []
+    },
+    {
+      "id": "1744615259156",
+      "firstName": "Admin",
+      "lastName": "Admin",
+      "email": "admin@admin.com",
+      "password": "$2a$10$WJ0KEVSFvGAm.85QSk.MRuAOneCfNxdaChdnaewPgDGqTVRv1nPae",
+      "profileImagePath": "uploads/Untitled.png",
+      "role": "Admin",
+      "tripList": [],
+      "wishList": [],
+      "propertyList": [],
+      "reservationList": []
+    },
+    {
+      "id": "1744619167079",
+      "firstName": "Guest",
+      "lastName": "Guest",
+      "email": "Guest@guest.com",
+      "password": "$2a$10$xYENm7OXUu57F9Sxqo/qNeCK1hUilT0VpY9Z6D9bgrFjhJ6n5toyq",
+      "profileImagePath": "uploads/Untitled.jpg",
+      "role": "guest",
       "tripList": [],
       "wishList": [],
       "propertyList": [],
@@ -402,6 +429,15 @@
       "startDate": "Sun Apr 13 2025",
       "endDate": "Sun Apr 27 2025",
       "totalPrice": 70000
+    },
+    {
+      "id": "a3af43f7-c443-4c30-8762-9af477fbf1f4",
+      "customerId": "1744540737659",
+      "hostId": "1744552242321",
+      "listingId": "587dead4-4973-4a07-a49e-cf4498ff28ee",
+      "startDate": "Mon Apr 14 2025",
+      "endDate": "Tue Apr 15 2025",
+      "totalPrice": 4000
     }
   ]
 }
