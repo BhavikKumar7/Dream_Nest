@@ -91,8 +91,7 @@ const CreateListing = () => {
     });
   };
 
-  const handlePost = async (e) => {
-    e.preventDefault();
+  const handlePost = async () => {
 
     try {
       const listingForm = new FormData();
@@ -509,12 +508,12 @@ const CreateListing = () => {
                 <button
                   className="submit_btn"
                   type="button"
-                  // onClick={(e) => {
-                  //   e.preventDefault();
-                  //   handleSubmit();
-                  // }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handlePost();
+                  }}
                 >
-                  BOOKING
+                  Create Listing
                 </button>
               ) : (
                 <div className="unauthorized">

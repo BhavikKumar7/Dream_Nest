@@ -1,116 +1,6 @@
 {
   "users": [
     {
-      "id": "1741515747828",
-      "firstName": "gg",
-      "lastName": "gg",
-      "email": "gggourav@gmail.com",
-      "password": "$2a$10$VbmzMQNjBWrtMVdfXptHeeIyY67SBxCPVQGRl4/u3.uKtoMIEFZEC",
-      "profileImagePath": "uploads/Screenshot 2023-11-23 181907.png",
-      "tripList": [],
-      "wishList": [],
-      "propertyList": [],
-      "reservationList": []
-    },
-    {
-      "id": "1741538278521",
-      "firstName": "Bhavik",
-      "lastName": "Kumar",
-      "email": "bhavik@gmail.com",
-      "password": "$2a$10$obc7IXev4gU0rNH0dEIOqekDDBMgo0TlHqzxsxnr29z6eySPTk.U.",
-      "profileImagePath": "uploads/John Smiths.jpg",
-      "tripList": [
-        {
-          "id": "260e6e34-3b7d-4607-aaeb-9d38d75410d1",
-          "customerId": "1741538278521",
-          "hostId": "1741515747828",
-          "listingId": "3710c10e-ff04-4b16-8293-61dcd0602cff",
-          "startDate": "Sun Apr 13 2025",
-          "endDate": "Tue Apr 15 2025",
-          "totalPrice": 2000
-        }
-      ],
-      "wishList": [
-        {
-          "id": "31eb45f6-f421-443b-8b51-63e24210e780",
-          "creator": "1741515747828",
-          "category": "Beachfront",
-          "type": "Room(s)",
-          "streetAddress": "12345",
-          "aptSuite": "asdfgh",
-          "city": "asdfgh",
-          "province": "asdf",
-          "country": "xcvb",
-          "guestCount": "1",
-          "bedroomCount": "1",
-          "bedCount": "1",
-          "bathroomCount": "1",
-          "amenities": "[\"TV\",\"Fire extinguisher\"]",
-          "listingPhotoPaths": [
-            "public\\uploads\\porsche-911-gt3-r-7680x6336-13738.jpg",
-            "public\\uploads\\Screenshot 2023-11-23 181907.png",
-            "public\\uploads\\wallpaperflare.com_wallpaper (4).jpg",
-            "public\\uploads\\wallpaperflare.com_wallpaper (64).jpg"
-          ],
-          "title": "wer",
-          "description": "sdfghj",
-          "highlight": "asdfghj",
-          "highlightDesc": "qwerh",
-          "price": "1000"
-        }
-      ],
-      "propertyList": [],
-      "reservationList": []
-    },
-    {
-      "id": "1741591114885",
-      "firstName": "Deewanshi",
-      "lastName": "Gujral",
-      "email": "dishu@gmail.com",
-      "password": "$2a$10$bWHb7FgqyD7pBmKTgwWP7O/ip.b49mvnHqpZBUuJ/9TlFZ4DBo8VK",
-      "profileImagePath": "uploads/denny.jpeg",
-      "tripList": [],
-      "wishList": [],
-      "propertyList": [],
-      "reservationList": []
-    },
-    {
-      "id": "1741601278852",
-      "firstName": "Bhavik",
-      "lastName": "Kumar",
-      "email": "bhavikKumar@gmail.com",
-      "password": "$2a$10$1zm8QYtbP2w.HsQrXZwFmusl4MAT6zoLqlsuLqDhjuN9jKdfCqo82",
-      "profileImagePath": "uploads/John Smiths.jpg",
-      "tripList": [],
-      "wishList": [],
-      "propertyList": [],
-      "reservationList": []
-    },
-    {
-      "id": "1741602528163",
-      "firstName": "Bhavik",
-      "lastName": "Kumar",
-      "email": "bhavik@gmail.com",
-      "password": "$2a$10$YFszZVdj8TGXXS2D9HbMm.fl4t6LpaYYrPKoyqQ4KizeeUfcKlY7i",
-      "profileImagePath": "uploads/John Smiths.jpg",
-      "tripList": [],
-      "wishList": [],
-      "propertyList": [],
-      "reservationList": []
-    },
-    {
-      "id": "1741604499484",
-      "firstName": "Bhavik",
-      "lastName": "Rajput",
-      "email": "bhavikRajput@gmail.com",
-      "password": "$2a$10$NbDKJj2SHV4AGgoM8k32j./wwiSfMzOr8C7fgKbIevOKej7q/y13e",
-      "profileImagePath": "uploads/John Smiths.jpg",
-      "tripList": [],
-      "wishList": [],
-      "propertyList": [],
-      "reservationList": []
-    },
-    {
       "id": "1744540737659",
       "firstName": "Yudhi",
       "lastName": "Angra",
@@ -208,150 +98,45 @@
       "wishList": [],
       "propertyList": [],
       "reservationList": []
+    },
+    {
+      "id": "1744967183065",
+      "firstName": "BHAVIK",
+      "lastName": "KUMAR",
+      "email": "BHAVIK@gmail.com",
+      "password": "$2a$10$CC.Ntqk1qKpn3k6NtMHHK.0CiV57wBbsQPn.uYEvpFwtJQ0nm5TuS",
+      "profileImagePath": "uploads/John Smiths.jpg",
+      "role": "user",
+      "tripList": [
+        {
+          "id": "8282f4b6-bd52-45d3-a6ea-f8af45c83605",
+          "customerId": "1744967183065",
+          "hostId": "1744552242321",
+          "listingId": "587dead4-4973-4a07-a49e-cf4498ff28ee",
+          "startDate": "Fri Apr 18 2025",
+          "endDate": "Sun Apr 20 2025",
+          "totalPrice": 8000
+        }
+      ],
+      "wishList": [],
+      "propertyList": [],
+      "reservationList": []
+    },
+    {
+      "id": "1744967779400",
+      "firstName": "Deewanshi",
+      "lastName": "Gujral",
+      "email": "DEEWANSHI@gmail.com",
+      "password": "$2a$10$M1m5ly1y9C7G11yEyXfUROZKQgb5He9ISN3vrxi5OJZt4TzDCB/pi",
+      "profileImagePath": "uploads/denny.jpeg",
+      "role": "host",
+      "tripList": [],
+      "wishList": [],
+      "propertyList": [],
+      "reservationList": []
     }
   ],
   "listings": [
-    {
-      "id": "31eb45f6-f421-443b-8b51-63e24210e780",
-      "creator": "1741515747828",
-      "category": "Beachfront",
-      "type": "Room(s)",
-      "streetAddress": "12345",
-      "aptSuite": "asdfgh",
-      "city": "asdfgh",
-      "province": "asdf",
-      "country": "xcvb",
-      "guestCount": "1",
-      "bedroomCount": "1",
-      "bedCount": "1",
-      "bathroomCount": "1",
-      "amenities": "[\"TV\",\"Fire extinguisher\"]",
-      "listingPhotoPaths": [
-        "public\\uploads\\porsche-911-gt3-r-7680x6336-13738.jpg",
-        "public\\uploads\\Screenshot 2023-11-23 181907.png",
-        "public\\uploads\\wallpaperflare.com_wallpaper (4).jpg",
-        "public\\uploads\\wallpaperflare.com_wallpaper (64).jpg"
-      ],
-      "title": "wer",
-      "description": "sdfghj",
-      "highlight": "asdfghj",
-      "highlightDesc": "qwerh",
-      "price": "1000"
-    },
-    {
-      "id": "3710c10e-ff04-4b16-8293-61dcd0602cff",
-      "creator": "1741515747828",
-      "category": "Beachfront",
-      "type": "An entire place",
-      "streetAddress": "1234",
-      "aptSuite": "asdfg",
-      "city": "dffg",
-      "province": "jhg",
-      "country": "uygc",
-      "guestCount": "2",
-      "bedroomCount": "1",
-      "bedCount": "1",
-      "bathroomCount": "1",
-      "amenities": "[\"Bath tub\",\"Washer\",\"Dryer\",\"TV\"]",
-      "listingPhotoPaths": [
-        "public\\uploads\\porsche-911-gt3-r-7680x6336-13738.jpg",
-        "public\\uploads\\Screenshot 2023-11-23 181907.png",
-        "public\\uploads\\wallpaperflare.com_wallpaper (4).jpg",
-        "public\\uploads\\wallpaperflare.com_wallpaper (64).jpg"
-      ],
-      "title": "qwerty",
-      "description": "fgioih",
-      "highlight": "dfghjkkj",
-      "highlightDesc": "dfghjh",
-      "price": "1000"
-    },
-    {
-      "id": "dbc101cb-b920-476b-b489-f62994f90254",
-      "creator": "1741591114885",
-      "category": "Countryside",
-      "type": "An entire place",
-      "streetAddress": "7894",
-      "aptSuite": "qwertyu",
-      "city": "ldh",
-      "province": "g ygvhn",
-      "country": "india",
-      "guestCount": "6",
-      "bedroomCount": "6",
-      "bedCount": "6",
-      "bathroomCount": "8",
-      "amenities": "[\"Bath tub\",\"TV\",\"Personal care products\",\"Wifi\",\"Cooking set\",\"Outdoor dining area\",\" Pet allowed\"]",
-      "listingPhotoPaths": [
-        "public\\uploads\\lake_cat.webp",
-        "public\\uploads\\lux_cat.jpg",
-        "public\\uploads\\modern_cat.webp",
-        "public\\uploads\\slide.jpg"
-      ],
-      "title": "qwertyuioplkhgf",
-      "description": "dv gfgzergvbgbr",
-      "highlight": "fragvzfegv",
-      "highlightDesc": "ggegv",
-      "price": "2500"
-    },
-    {
-      "id": "3d830489-e268-4943-89ed-a368835efe33",
-      "creator": "1741604499484",
-      "category": "Caves",
-      "type": "Room(s)",
-      "streetAddress": "asdfghj",
-      "aptSuite": "qwefrev",
-      "city": "wefwedf",
-      "province": "fwef",
-      "country": "wedvv",
-      "guestCount": "5",
-      "bedroomCount": "5",
-      "bedCount": "5",
-      "bathroomCount": "5",
-      "amenities": "[\"Bath tub\",\"TV\",\"First Aid\",\"Wifi\",\"Outdoor dining area\",\"Air Conditioning\",\"Outdoor shower\",\" Pet allowed\"]",
-      "listingPhotoPaths": [
-        "public\\uploads\\barn_cat.jpg",
-        "public\\uploads\\beach_cat.jpg",
-        "public\\uploads\\camping_cat.jpg",
-        "public\\uploads\\castle_cat.webp",
-        "public\\uploads\\cave_cat.jpg"
-      ],
-      "title": "asdgj",
-      "description": "frvdfbvjheuvej",
-      "highlight": "fvwhfcwf",
-      "highlightDesc": "fcuwdhfcuhqefu",
-      "price": "1000"
-    },
-    {
-      "id": "176c1f49-a0e4-4b82-8e74-fb5915d84db7",
-      "creator": "1741538278521",
-      "category": "Iconic cities",
-      "type": "An entire place",
-      "streetAddress": "qwerty",
-      "aptSuite": "qwerty",
-      "city": "qwerty",
-      "province": "qwerty",
-      "country": "qwertyu",
-      "guestCount": 10,
-      "bedroomCount": 5,
-      "bedCount": 5,
-      "bathroomCount": 6,
-      "amenities": "[\"Bath tub\",\"Washer\",\"Dryer\",\"TV\",\"Dedicated workspace\",\"Security cameras\",\"Fire extinguisher\",\"Cooking set\",\"Refrigerator\",\"Barbecue grill\",\"Outdoor dining area\",\"Garden\",\" Pet allowed\"]",
-      "listingPhotoPaths": [
-        "public\\uploads\\1.jpg",
-        "public\\uploads\\2.jpg",
-        "public\\uploads\\3.jpeg",
-        "public\\uploads\\4.jpg",
-        "public\\uploads\\5.jpg",
-        "public\\uploads\\6.jpg",
-        "public\\uploads\\7.jpg",
-        "public\\uploads\\8.jpg"
-      ],
-      "title": "TQWERTY",
-      "description": "DQWERTY",
-      "highlight": "HQWERTY",
-      "highlightDesc": "HDQWERTY",
-      "price": 3000,
-      "photoUrls": []
-    },
     {
       "id": "587dead4-4973-4a07-a49e-cf4498ff28ee",
       "creator": "1744552242321",
@@ -382,6 +167,31 @@
       "highlightDesc": "dygcdsc",
       "price": 4000,
       "photoUrls": []
+    },
+    {
+      "id": "d2ac1aa0-1e4a-4b5b-a41f-6a5af6f8e3f0",
+      "creator": "1744967779400",
+      "category": "Arctic",
+      "type": "An entire place",
+      "streetAddress": "123, gfdw",
+      "aptSuite": "hc",
+      "city": "ldh",
+      "province": "djsadw",
+      "country": "india",
+      "guestCount": "5",
+      "bedroomCount": "5",
+      "bedCount": "5",
+      "bathroomCount": "5",
+      "amenities": "[\"Personal care products\",\"TV\",\"Air Conditioning\",\"Wifi\",\"Cooking set\",\"Barbecue grill\"]",
+      "listingPhotoPaths": [
+        "public\\uploads\\arctic_cat.webp",
+        "public\\uploads\\skiing_cat.jpg"
+      ],
+      "title": "gvwds",
+      "description": "dshbcx",
+      "highlight": "dhjw",
+      "highlightDesc": "sjgchsdhd",
+      "price": "1000"
     }
   ],
   "bookings": [
@@ -438,6 +248,15 @@
       "startDate": "Mon Apr 14 2025",
       "endDate": "Tue Apr 15 2025",
       "totalPrice": 4000
+    },
+    {
+      "id": "8282f4b6-bd52-45d3-a6ea-f8af45c83605",
+      "customerId": "1744967183065",
+      "hostId": "1744552242321",
+      "listingId": "587dead4-4973-4a07-a49e-cf4498ff28ee",
+      "startDate": "Fri Apr 18 2025",
+      "endDate": "Sun Apr 20 2025",
+      "totalPrice": 8000
     }
   ]
 }
