@@ -116,6 +116,15 @@
           "startDate": "Fri Apr 18 2025",
           "endDate": "Sun Apr 20 2025",
           "totalPrice": 8000
+        },
+        {
+          "id": "150de831-478b-40ef-8232-4f60f90b7fd5",
+          "customerId": "1744967183065",
+          "hostId": "1744967779400",
+          "listingId": "d2ac1aa0-1e4a-4b5b-a41f-6a5af6f8e3f0",
+          "startDate": "Fri Apr 18 2025",
+          "endDate": "Sun Apr 20 2025",
+          "totalPrice": 3000
         }
       ],
       "wishList": [],
@@ -178,10 +187,10 @@
       "city": "ldh",
       "province": "djsadw",
       "country": "india",
-      "guestCount": "5",
-      "bedroomCount": "5",
-      "bedCount": "5",
-      "bathroomCount": "5",
+      "guestCount": 5,
+      "bedroomCount": 5,
+      "bedCount": 5,
+      "bathroomCount": 5,
       "amenities": "[\"Personal care products\",\"TV\",\"Air Conditioning\",\"Wifi\",\"Cooking set\",\"Barbecue grill\"]",
       "listingPhotoPaths": [
         "public\\uploads\\arctic_cat.webp",
@@ -191,7 +200,8 @@
       "description": "dshbcx",
       "highlight": "dhjw",
       "highlightDesc": "sjgchsdhd",
-      "price": "1000"
+      "price": 1500,
+      "photoUrls": []
     }
   ],
   "bookings": [
@@ -257,6 +267,24 @@
       "startDate": "Fri Apr 18 2025",
       "endDate": "Sun Apr 20 2025",
       "totalPrice": 8000
+    },
+    {
+      "id": "150de831-478b-40ef-8232-4f60f90b7fd5",
+      "customerId": "1744967183065",
+      "hostId": "1744967779400",
+      "listingId": "d2ac1aa0-1e4a-4b5b-a41f-6a5af6f8e3f0",
+      "startDate": "Fri Apr 18 2025",
+      "endDate": "Sun Apr 20 2025",
+      "totalPrice": 3000
+    },
+    {
+      "id": "adee9190-4cc5-4b00-ba08-93c9c7683938",
+      "customerId": "1744973723100",
+      "hostId": "1744967779400",
+      "listingId": "d2ac1aa0-1e4a-4b5b-a41f-6a5af6f8e3f0",
+      "startDate": "Fri Apr 18 2025",
+      "endDate": "Sun Apr 20 2025",
+      "totalPrice": 3000
     }
   ]
 }
