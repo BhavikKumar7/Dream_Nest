@@ -6,7 +6,6 @@ const { v4: uuidv4 } = require("uuid");
 
 const dataFilePath = path.join(__dirname, "../data.json");
 
-// Load data from JSON file
 const loadData = async () => {
   try {
     const fileData = await fs.readFile(dataFilePath, "utf-8");
@@ -22,7 +21,6 @@ const loadData = async () => {
   }
 };
 
-// Save updated data to JSON file
 const saveData = async (data) => {
   try {
     await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2));
@@ -32,12 +30,10 @@ const saveData = async (data) => {
   }
 };
 
-// POST /bookings/create
 router.post("/create", async (req, res) => {
   try {
     const { customerId, hostId, listingId, startDate, endDate, totalPrice } = req.body;
 
-    // Validation
     if (!customerId || !hostId || !listingId || !startDate || !endDate || !totalPrice) {
       return res.status(400).json({
         message: "Missing required booking fields.",
@@ -48,7 +44,7 @@ router.post("/create", async (req, res) => {
     const data = await loadData();
 
     const newBooking = {
-      id: uuidv4(), // Use UUID here
+      id: uuidv4(),
       customerId,
       hostId,
       listingId,

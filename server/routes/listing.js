@@ -142,16 +142,15 @@ router.get("/search/:search", (req, res) => {
         listing.title.toLowerCase().includes(search.toLowerCase())
     );
 
-    console.log("Filtered Listings:", filteredListings);  // Debugging
+    console.log("Filtered Listings:", filteredListings);
 
-    // If no listings are found, return a meaningful message
     if (filteredListings.length === 0) {
       return res.status(404).json({ message: "No listings found matching the search criteria" });
     }
 
     res.status(200).json(filteredListings);
   } catch (err) {
-    console.error("Error in search:", err);  // Debugging
+    console.error("Error in search:", err);
     res.status(404).json({ message: "Failed to fetch listings", error: err.message });
   }
 });
@@ -284,7 +283,7 @@ router.delete("/:id", (req, res) => {
       return res.status(404).json({ message: "Listing not found" });
     }
 
-    listings.splice(indexToDelete, 1); // Remove the listing
+    listings.splice(indexToDelete, 1);
 
     fs.writeFile("./data.json", JSON.stringify(jsonData, null, 2), "utf8", (writeErr) => {
       if (writeErr) {

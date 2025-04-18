@@ -14,7 +14,6 @@ const saveData = async (data) => {
   await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2));
 };
 
-// Get all users
 router.get("/users", async (req, res) => {
   try {
     const data = await loadData();
@@ -24,7 +23,6 @@ router.get("/users", async (req, res) => {
   }
 });
 
-// Delete user by ID
 router.delete("/users/:id", async (req, res) => {
   try {
     const data = await loadData();
@@ -40,20 +38,6 @@ router.delete("/users/:id", async (req, res) => {
   }
 });
 
-// Get bookings of a specific user
-// router.get("/users/:id/bookings", async (req, res) => {
-//   try {
-//     const data = await loadData();
-//     const userId = req.params.id;
-
-//     const userBookings = data.bookings.filter((b) => b.customerId === userId);
-//     res.status(200).json(userBookings);
-//   } catch (err) {
-//     res.status(500).json({ message: "Failed to fetch bookings", error: err.message });
-//   }
-// });
-// Get bookings of a specific user (along with user info)
-// Get bookings of a specific user (with user info)
 router.get("/users/:id/bookings", async (req, res) => {
   try {
     const data = await loadData();
@@ -84,9 +68,6 @@ router.get("/users/:id/bookings", async (req, res) => {
   }
 });
 
-
-
-// Get all hosts
 router.get("/hosts", async (req, res) => {
     try {
       const data = await loadData();
@@ -97,7 +78,6 @@ router.get("/hosts", async (req, res) => {
     }
   });
   
-  // Delete host by ID
   router.delete("/hosts/:id", async (req, res) => {
     try {
       const data = await loadData();
@@ -113,20 +93,6 @@ router.get("/hosts", async (req, res) => {
     }
   });
   
-  // Get listings of a specific host
-  // router.get("/hosts/:id/listings", async (req, res) => {
-  //   try {
-  //     const data = await loadData();
-  //     const hostId = req.params.id;
-  
-  //     const listings = data.listings.filter((listing) => listing.creator.id === hostId);
-  //     res.status(200).json(listings);
-  //   } catch (err) {
-  //     res.status(500).json({ message: "Failed to fetch listings", error: err.message });
-  //   }
-  // });
-  // Assuming this is within your existing routes
-
   router.get("/hosts/:id/listings", async (req, res) => {
     try {
       const data = await loadData();

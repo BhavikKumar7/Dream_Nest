@@ -94,10 +94,8 @@ router.get("/:userId/reservations", async (req, res) => {
     const { userId } = req.params;
     const { bookings, listings, users } = await loadData();
 
-    // Filter bookings where the host is the user
     const reservations = bookings.filter((booking) => booking.hostId === userId);
 
-    // Optionally enrich the booking data with listing info
     const enrichedReservations = reservations.map((booking) => {
       const listing = listings.find((l) => l.id === booking.listingId);
       const customer = users.find((u) => u.id === booking.customerId);
