@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/Register.scss";
 
 const RegisterPage = () => {
@@ -9,11 +9,12 @@ const RegisterPage = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "user", // Default role
+    role: "user",
     profileImage: null,
   });
 
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,23 +36,33 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!passwordMatch) {
+      setError("Passwords do not match.");
+      return;
+    }
+
     try {
       const register_form = new FormData();
-
-      for (const key in formData) {
-        register_form.append(key, formData[key]);
-      }
+      Object.entries(formData).forEach(([key, value]) => {
+        register_form.append(key, value);
+      });
 
       const response = await fetch("http://localhost:3001/auth/register", {
         method: "POST",
         body: register_form,
       });
 
+      const result = await response.json();
+
       if (response.ok) {
+        alert("Registration successful. Please log in.");
         navigate("/login");
+      } else {
+        setError(result.message || "Registration failed.");
       }
     } catch (err) {
-      console.error("Registration failed", err.message);
+      console.error("Registration failed:", err.message);
+      setError("Something went wrong. Please try again.");
     }
   };
 
@@ -87,6 +98,7 @@ const RegisterPage = () => {
             value={formData.password}
             onChange={handleChange}
             type="password"
+            minLength={6}
             required
           />
           <input
@@ -95,11 +107,12 @@ const RegisterPage = () => {
             value={formData.confirmPassword}
             onChange={handleChange}
             type="password"
+            minLength={6}
             required
           />
 
           {!passwordMatch && (
-            <p style={{ color: "red" }}>Passwords are not matched!</p>
+            <p style={{ color: "red" }}>Passwords do not match.</p>
           )}
 
           <div className="role-select">
@@ -123,26 +136,6 @@ const RegisterPage = () => {
               />
               Host
             </label>
-            {/* <label>
-              <input
-                type="radio"
-                name="role"
-                value="Admin"
-                checked={formData.role === "Admin"}
-                onChange={handleChange}
-              />
-              Admin
-            </label> */}
-            {/* <label>
-              <input
-                type="radio"
-                name="role"
-                value="guest"
-                checked={formData.role === "guest"}
-                onChange={handleChange}
-              />
-              guest
-            </label> */}
           </div>
 
           <input
@@ -167,10 +160,12 @@ const RegisterPage = () => {
             />
           )}
 
+          {error && <p style={{ color: "red" }}>{error}</p>}
+
           <button type="submit" disabled={!passwordMatch}>REGISTER</button>
         </form>
 
-        <a href="/login">Already have an account? Log In Here</a>
+        <Link to="/login">Already have an account? Log In Here</Link>
       </div>
     </div>
   );

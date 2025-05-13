@@ -14,12 +14,22 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    dispatch(setLogout());
+    navigate("/login");
+  };
+
+  const profileImageSrc = user?.profileImagePath
+    ? `http://localhost:3001/${user.profileImagePath.replace("public", "")}`
+    : "/assets/uploadPhoto.png";
+    
+  console.log(profileImageSrc);
 
   return (
     <div className="navbar">
-      <a href="/">
+      <div style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
         <img src="/assets/logo.png" alt="logo" />
-      </a>
+      </div>
 
       <div className="navbar_search">
         <input
@@ -39,11 +49,10 @@ const Navbar = () => {
       </div>
 
       <div className="navbar_right">
-        {/* Show "Become A Host" link only if not logged in */}
         {!user && (
-          <a href="/login" className="host">
+          <Link to="/login" className="host">
             Become A Host
-          </a>
+          </Link>
         )}
 
         <button
@@ -55,11 +64,8 @@ const Navbar = () => {
             <Person sx={{ color: variables.darkgrey }} />
           ) : (
             <img
-              src={`http://localhost:3001/${user.profileImagePath.replace(
-                "public",
-                ""
-              )}`}
-              alt="profile photo"
+              src={profileImageSrc}
+              alt="profile"
               style={{ objectFit: "cover", borderRadius: "50%" }}
             />
           )}
@@ -74,46 +80,39 @@ const Navbar = () => {
 
         {dropdownMenu && user && (
           <div className="navbar_right_accountmenu">
-            {/* If the user is a host, show these links */}
             {user.role === "host" && (
               <>
                 <Link to="/create-listing">Create Listing</Link>
-                <Link to={`/${user.id}/properties`}>Property List</Link>
-                <Link to={`/${user.id}/reservations`}>Booking List</Link>
+                <Link to={`/${user._id}/properties`}>Property List</Link>
+                <Link to={`/${user._id}/reservations`}>Booking List</Link>
               </>
             )}
 
             {user.role === "guest" && (
               <>
-                <Link to={`/${user.id}/trips`}>Trip List</Link>
-                <Link to={`/${user.id}/wishList`}>Wish List</Link>
+                <Link to={`/${user._id}/trips`}>Trip List</Link>
+                <Link to={`/${user._id}/wishList`}>Wish List</Link>
                 <Link to="/create-listing">Create Listing</Link>
-                <Link to={`/${user.id}/properties`}>Property List</Link>
-                <Link to={`/${user.id}/reservations`}>Booking List</Link>
+                <Link to={`/${user._id}/properties`}>Property List</Link>
+                <Link to={`/${user._id}/reservations`}>Booking List</Link>
               </>
             )}
 
-            {user.role === "Admin" && (
+            {user.role === "admin" && (
               <>
-                <Link to={`/admin/users`}>User's List</Link>
-                <Link to={`/admin/hosts`}>Host's List</Link>
+                <Link to="/admin/users">User's List</Link>
+                <Link to="/admin/hosts">Host's List</Link>
               </>
             )}
 
-            {/* User-specific links */}
             {user.role === "user" && (
               <>
-                <Link to={`/${user.id}/trips`}>Trip List</Link>
-                <Link to={`/${user.id}/wishList`}>Wish List</Link>
+                <Link to={`/${user._id}/trips`}>Trip List</Link>
+                <Link to={`/${user._id}/wishList`}>Wish List</Link>
               </>
             )}
 
-            <Link
-              to="/login"
-              onClick={() => {
-                dispatch(setLogout());
-              }}
-            >
+            <Link to="/login" onClick={handleLogout}>
               Log Out
             </Link>
           </div>

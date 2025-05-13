@@ -1,46 +1,46 @@
-const fs = require("fs").promises;
-const path = require("path");
+require("./db");
 
-const dataFilePath = path.join(__dirname, "data.json");
+const User = require("./models/User");
+const Listing = require("./models/Listing");
+const Booking = require("./models/Booking");
 
-let users = [];
-let listings = [];
-let bookings = [];
-
+/**
+ * Loads all data from MongoDB collections.
+ * @returns {Promise<{users: Array, listings: Array, bookings: Array}>}
+ */
 const loadData = async () => {
   try {
-    const fileData = await fs.readFile(dataFilePath, "utf-8");
-    const data = JSON.parse(fileData);
+    const users = await User.find({});
+    const listings = await Listing.find({});
+    const bookings = await Booking.find({});
 
-    if (Array.isArray(data.users)) users = data.users;
-    if (Array.isArray(data.listings)) listings = data.listings;
-    if (Array.isArray(data.bookings)) bookings = data.bookings;
-
-    console.log(users);
-
-    console.log("Data loaded successfully.");
+    console.log("✅ Data loaded from MongoDB.");
+    return { users, listings, bookings };
   } catch (err) {
-    if (err.code === "ENOENT") {
-      await saveData();
-      console.log("Created new data file with default values.");
-    } else {
-      console.error("Error loading data from file:", err.message);
-    }
+    console.error("❌ Error loading data from MongoDB:", err.message);
+    return { users: [], listings: [], bookings: [] };
   }
-
-  return {users, listings, bookings};
 };
 
-const saveData = async () => {
-  const data = { users, listings, bookings };
+/**
+ * Saves given data into MongoDB collections after clearing them.
+ * This will remove all existing documents in the collections.
+ * @param {{users: Array, listings: Array, bookings: Array}} data
+ */
+const saveData = async ({ users = [], listings = [], bookings = [] }) => {
   try {
-    await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2));
-    console.log("Data saved successfully.");
+    await User.deleteMany({});
+    await Listing.deleteMany({});
+    await Booking.deleteMany({});
+
+    if (users.length > 0) await User.insertMany(users);
+    if (listings.length > 0) await Listing.insertMany(listings);
+    if (bookings.length > 0) await Booking.insertMany(bookings);
+
+    console.log("✅ Data saved to MongoDB.");
   } catch (err) {
-    console.error("Error saving data to file:", err.message);
+    console.error("❌ Error saving data to MongoDB:", err.message);
   }
 };
 
-loadData();
-
-module.exports = { saveData,loadData };
+module.exports = { loadData, saveData };

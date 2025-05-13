@@ -7,16 +7,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
 
 const ListingDetails = () => {
   const [loading, setLoading] = useState(true);
-
   const { listingId } = useParams();
   const [listing, setListing] = useState(null);
-
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -25,41 +24,41 @@ const ListingDetails = () => {
 
   const getListingDetails = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/properties/${listingId}`,
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch(`http://localhost:3001/properties/${listingId}`, {
+        method: "GET",
+      });
 
-      const data = await response.json();
-      setListing(data);
-      setLoading(false);
+      if (response.ok) {
+        const data = await response.json();
+        setListing(data);
+        setLoading(false);
+      } else {
+        console.error("Error fetching listing details:", response.status);
+        setLoading(false);
+      }
     } catch (err) {
       console.log("Fetch Listing Details Failed", err.message);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getListingDetails();
-  }, []);
-
-  console.log(listing)
+  }, [listingId]);
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
   const dayCount = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
 
-  const customerId = useSelector((state) => state?.user?.id);
+  const customerId = useSelector((state) => state?.user?._id);
 
   const handleSubmit = async () => {
-    console.log("Booking button clicked");
     try {
       const bookingForm = {
         customerId,
         listingId,
-        hostId: listing.creator.id,
+        hostId: listing?.creator?._id,
         startDate: startDate.toDateString(),
         endDate: endDate.toDateString(),
         totalPrice: listing.price * dayCount,
@@ -72,6 +71,7 @@ const ListingDetails = () => {
         },
         body: JSON.stringify(bookingForm),
       });
+
       if (response.ok) {
         navigate(`/${customerId}/trips`);
       } else {
@@ -97,6 +97,7 @@ const ListingDetails = () => {
         <div className="photos">
           {listing.listingPhotoPaths?.map((item) => (
             <img
+              key={item}
               src={`http://localhost:3001/${item.replace("public", "")}`}
               alt="listing photo"
             />
@@ -104,8 +105,7 @@ const ListingDetails = () => {
         </div>
 
         <h2>
-          {listing.type} in {listing.city}, {listing.province},{" "}
-          {listing.country}
+          {listing.type} in {listing.city}, {listing.province}, {listing.country}
         </h2>
         <p>
           {listing.guestCount} guests - {listing.bedroomCount} bedroom(s) -{" "}
@@ -141,7 +141,7 @@ const ListingDetails = () => {
           <div>
             <h2>What this place offers?</h2>
             <div className="amenities">
-              {JSON.parse(listing.amenities).map((item, index) => (
+              {listing.amenities.map((item, index) => (
                 <div className="facility" key={index}>
                   <div className="facility_icon">
                     {facilities.find((facility) => facility.name === item)?.icon}
@@ -150,7 +150,6 @@ const ListingDetails = () => {
                 </div>
               ))}
             </div>
-
           </div>
 
           <div>
@@ -176,17 +175,7 @@ const ListingDetails = () => {
               <h2>Total price: ${listing.price * dayCount}</h2>
               <p>Start Date: {startDate.toDateString()}</p>
               <p>End Date: {endDate.toDateString()}</p>
-              {/* <button
-                className="button"
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSubmit();
-                }}
-              >
-                BOOKING
-              </button> */}
-              {/* Conditional Rendering based on user state */}
+
               {user?.role === "user" ? (
                 <button
                   className="button"

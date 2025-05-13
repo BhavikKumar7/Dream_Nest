@@ -42,24 +42,24 @@ const ListingCard = ({
   const user = useSelector((state) => state.user);
   const wishList = user?.wishList || [];
 
-  const isLiked = wishList?.find((item) => item?.id === listingId);
+  const isLiked = wishList?.some((item) => item?._id === listingId);
 
   const goToPrevSlide = () => {
-    setCurrentIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + listingPhotoPaths.length) % listingPhotoPaths.length
+    setCurrentIndex((prevIndex) =>
+      (prevIndex - 1 + listingPhotoPaths.length) % listingPhotoPaths.length
     );
   };
 
   const goToNextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % listingPhotoPaths.length);
+    setCurrentIndex((prevIndex) =>
+      (prevIndex + 1) % listingPhotoPaths.length
+    );
   };
 
   const patchWishList = async () => {
-    if (user?.id && creator?.id && user?.id !== creator?.id) {
       try {
-        const response = await fetch(
-          `http://localhost:3001/users/${user?.id}/${listingId}`,
+        const res = await fetch(
+          `http://localhost:3001/users/${user._id}/${listingId}`,
           {
             method: "PATCH",
             headers: {
@@ -67,30 +67,32 @@ const ListingCard = ({
             },
           }
         );
-        const data = await response.json();
+        const data = await res.json();
         dispatch(setWishList(data.wishList));
       } catch (err) {
-        console.error("Failed to patch wishlist:", err);
+        console.error("Failed to patch wishlist:", err.message);
       }
-    }
+    // 
   };
 
   useEffect(() => {
     const fetchBookingUser = async () => {
-      if (user?.id && creator?.id && user?.id === creator.id && booking && bookingUserId) {
+      if (user?._id && creator?._id && user._id === creator._id && booking && bookingUserId) {
         try {
           const res = await fetch(`http://localhost:3001/users/${bookingUserId}`);
           const data = await res.json();
           const { password, ...rest } = data;
           setBookingUser(rest);
         } catch (err) {
-          console.error("Failed to fetch booking user:", err);
+          console.error("Failed to fetch booking user:", err.message);
         }
       }
     };
 
     fetchBookingUser();
-  }, [user?.id, creator?.id, booking, bookingUserId]);
+  }, [user?._id, creator?._id, booking, bookingUserId]);
+
+  const formatDate = (dateStr) => new Date(dateStr).toLocaleDateString();
 
   return (
     <div
@@ -111,10 +113,11 @@ const ListingCard = ({
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {listingPhotoPaths.map((photo, index) => (
-            <div key={index} className="slide">
+            <div key={photo} className="slide">
               <img
-                src={`http://localhost:3001/${photo?.replace("public", "")}`}
+                src={`http://localhost:3001/${photo?.replace(/^public\//, "")}`}
                 alt={`photo ${index + 1}`}
+                loading="lazy"
               />
               <div
                 className="prev-button"
@@ -151,7 +154,7 @@ const ListingCard = ({
         </>
       ) : (
         <>
-          <p>{startDate} - {endDate}</p>
+          <p>{formatDate(startDate)} - {formatDate(endDate)}</p>
           <p>
             <span>${totalPrice}</span> total
           </p>
@@ -162,20 +165,20 @@ const ListingCard = ({
         <div className="trip-details-dropdown">
           <p><strong>Trip ID:</strong> {tripId}</p>
           <p><strong>Listing ID:</strong> {listingId}</p>
-          <p><strong>Host ID:</strong> {creator?.id || "N/A"}</p>
-          <p><strong>Start Date:</strong> {startDate}</p>
-          <p><strong>End Date:</strong> {endDate}</p>
+          <p><strong>Host ID:</strong> {creator?._id || "N/A"}</p>
+          <p><strong>Start Date:</strong> {formatDate(startDate)}</p>
+          <p><strong>End Date:</strong> {formatDate(endDate)}</p>
           <p><strong>Total Price:</strong> ${totalPrice}</p>
         </div>
       )}
 
-      {user?.id === creator?.id && bookingUser && (
+      {user?._id === creator?._id && bookingUser && (
         <div className="booking-user-details">
           <hr />
           <h4>Guest Info</h4>
           <p><strong>Name:</strong> {bookingUser.firstName} {bookingUser.lastName}</p>
           <p><strong>Email:</strong> {bookingUser.email}</p>
-          <p><strong>User ID:</strong> {bookingUser.id}</p>
+          <p><strong>User ID:</strong> {bookingUser._id}</p>
         </div>
       )}
 
@@ -199,11 +202,7 @@ const ListingCard = ({
         }}
         disabled={!user}
       >
-        {isLiked ? (
-          <Favorite sx={{ color: "red" }} />
-        ) : (
-          <Favorite sx={{ color: "white" }} />
-        )}
+        <Favorite sx={{ color: isLiked ? "red" : "white" }} />
       </button>
 
       {(onEdit || onDelete) && (

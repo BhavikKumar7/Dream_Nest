@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../styles/Login.scss";
 import { setLogin } from "../redux/state";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -22,31 +22,32 @@ const LoginPage = () => {
 
       const loggedIn = await response.json();
 
-      if (response.ok && loggedIn) {
+      if (response.ok && loggedIn.user && loggedIn.token) {
         const { user, token } = loggedIn;
 
-        dispatch(
-          setLogin({
-            user,
-            token,
-          })
-        );
+        dispatch(setLogin({ user, token }));
 
-        if (user.role === "host") {
-          navigate("/host-dashboard");
-        } else if (user.role === "user") {
-          navigate("/user-dashboard");
-        } else if (user.role === "Admin") {
-          navigate("/admin-dashboard");
-        } else {
-          navigate("/");
-          console.log(user.role);
+        switch (user.role) {
+          case "host":
+            navigate("/host-dashboard");
+            break;
+          case "user":
+            navigate("/user-dashboard");
+            break;
+          case "admin":
+            navigate("/admin-dashboard");
+            break;
+          default:
+            navigate("/");
+            break;
         }
       } else {
-        console.log("Login failed: Invalid credentials or server issue.");
+        console.error("Login failed: Invalid credentials or server error.");
+        alert("Invalid email or password.");
       }
     } catch (err) {
-      console.log("Login failed", err.message);
+      console.error("Login failed:", err.message);
+      alert("Network or server issue.");
     }
   };
 
@@ -56,8 +57,7 @@ const LoginPage = () => {
   };
 
   const handleGuestLogin = () => {
-    // Use predefined guest credentials
-    handleLogin("Guest@guest.com", "guest@123");
+    handleLogin("guest@guest.com", "guest@123");
   };
 
   return (
@@ -79,11 +79,15 @@ const LoginPage = () => {
             required
           />
           <button type="submit">LOG IN</button>
-          <button type="button" onClick={handleGuestLogin} className="guest-login-btn">
+          <button
+            type="button"
+            onClick={handleGuestLogin}
+            className="guest-login-btn"
+          >
             LOGIN AS GUEST
           </button>
         </form>
-        <a href="/register">Don't have an account? Sign In Here</a>
+        <Link to="/register">Don't have an account? Sign Up Here</Link>
       </div>
     </div>
   );

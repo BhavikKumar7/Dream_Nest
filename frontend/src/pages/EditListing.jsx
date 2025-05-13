@@ -57,11 +57,11 @@ const EditListing = () => {
                 setCategory(data.category);
                 setType(data.type);
                 setFormLocation({
-                    streetAddress: data.streetAddress,
-                    aptSuite: data.aptSuite,
-                    city: data.city,
-                    province: data.province,
-                    country: data.country,
+                    streetAddress: data.location.streetAddress,
+                    aptSuite: data.location.aptSuite,
+                    city: data.location.city,
+                    province: data.location.province,
+                    country: data.location.country,
                 });
                 setGuestCount(data.guestCount);
                 setBedroomCount(data.bedroomCount);
@@ -123,7 +123,6 @@ const EditListing = () => {
         setPhotos(reordered);
     };
 
-
     const handleChangeDescription = (e) => {
         const { name, value } = e.target;
         setFormDescription((prev) => ({ ...prev, [name]: value }));
@@ -162,17 +161,12 @@ const EditListing = () => {
                 body: listingForm,
             });
 
-
             if (response.ok) {
                 navigate("/:userId/properties");
             } else {
                 const errorText = await response.text();
                 throw new Error(errorText || "Unknown error");
             }
-            // if (!response.ok) {
-            //     const errorText = await response.text();
-            //     throw new Error(errorText || "Unknown error");
-            // }
 
         } catch (err) {
             console.log("Update Listing failed", err.message);

@@ -44,90 +44,75 @@ const CreateListing = () => {
     price: 0,
   });
 
-  const creatorId = user.id;
+  const creatorId = user?._id;
 
   const handleChangeLocation = (e) => {
     const { name, value } = e.target;
-    setFormLocation({
-      ...formLocation,
-      [name]: value,
-    });
+    setFormLocation((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSelectAmenities = (facility) => {
-    setAmenities((prevAmenities) =>
-      prevAmenities.includes(facility)
-        ? prevAmenities.filter((option) => option !== facility)
-        : [...prevAmenities, facility]
+    setAmenities((prev) =>
+      prev.includes(facility)
+        ? prev.filter((item) => item !== facility)
+        : [...prev, facility]
     );
   };
 
   const handleUploadPhotos = (e) => {
-    const newPhotos = Array.from(e.target.files);
-    setPhotos((prevPhotos) => [...prevPhotos, ...newPhotos]);
+    const files = Array.from(e.target.files);
+    setPhotos((prev) => [...prev, ...files]);
   };
 
   const handleDragPhoto = (result) => {
     if (!result.destination) return;
-
     const items = Array.from(photos);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
+    const [movedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, movedItem);
     setPhotos(items);
   };
 
-  const handleRemovePhoto = (indexToRemove) => {
-    setPhotos((prevPhotos) =>
-      prevPhotos.filter((_, index) => index !== indexToRemove)
-    );
+  const handleRemovePhoto = (index) => {
+    setPhotos((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleChangeDescription = (e) => {
     const { name, value } = e.target;
-    setFormDescription({
-      ...formDescription,
-      [name]: value,
-    });
+    setFormDescription((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handlePost = async () => {
-
+  const handlePost = async (e) => {
+    e.preventDefault();
     try {
-      const listingForm = new FormData();
-      listingForm.append("creator", creatorId);
-      listingForm.append("category", category);
-      listingForm.append("type", type);
-      listingForm.append("streetAddress", formLocation.streetAddress);
-      listingForm.append("aptSuite", formLocation.aptSuite);
-      listingForm.append("city", formLocation.city);
-      listingForm.append("province", formLocation.province);
-      listingForm.append("country", formLocation.country);
-      listingForm.append("guestCount", guestCount);
-      listingForm.append("bedroomCount", bedroomCount);
-      listingForm.append("bedCount", bedCount);
-      listingForm.append("bathroomCount", bathroomCount);
-      listingForm.append("amenities", JSON.stringify(amenities));
-      listingForm.append("title", formDescription.title);
-      listingForm.append("description", formDescription.description);
-      listingForm.append("highlight", formDescription.highlight);
-      listingForm.append("highlightDesc", formDescription.highlightDesc);
-      listingForm.append("price", formDescription.price);
+      const formData = new FormData();
+      formData.append("creator", creatorId);
+      formData.append("category", category);
+      formData.append("type", type);
+      formData.append("streetAddress", formLocation.streetAddress);
+      formData.append("aptSuite", formLocation.aptSuite);
+      formData.append("city", formLocation.city);
+      formData.append("province", formLocation.province);
+      formData.append("country", formLocation.country);
+      formData.append("guestCount", guestCount);
+      formData.append("bedroomCount", bedroomCount);
+      formData.append("bedCount", bedCount);
+      formData.append("bathroomCount", bathroomCount);
+      formData.append("amenities", JSON.stringify(amenities));
+      formData.append("title", formDescription.title);
+      formData.append("description", formDescription.description);
+      formData.append("highlight", formDescription.highlight);
+      formData.append("highlightDesc", formDescription.highlightDesc);
+      formData.append("price", formDescription.price);
+      photos.forEach((photo) => formData.append("listingPhotos", photo));
 
-      photos.forEach((photo) => {
-        listingForm.append("listingPhotos", photo);
-      });
-
-      const response = await fetch("http://localhost:3001/properties/create", {
+      const res = await fetch("http://localhost:3001/properties/create", {
         method: "POST",
-        body: listingForm,
+        body: formData,
       });
 
-      if (response.ok) {
-        navigate("/host-dashboard");
-      }
+      if (res.ok) navigate("/host-dashboard");
     } catch (err) {
-      console.log("Publish Listing failed", err.message);
+      console.error("Error publishing listing:", err);
     }
   };
 
@@ -500,17 +485,13 @@ const CreateListing = () => {
                 />
               </div>
             </div>
-
-            {/* <button className="submit_btn" type="submit">
-              CREATE YOUR LISTING
-            </button> */}
             {user?.role === "host" ? (
                 <button
                   className="submit_btn"
                   type="button"
                   onClick={(e) => {
                     e.preventDefault();
-                    handlePost();
+                    handlePost(e);
                   }}
                 >
                   Create Listing

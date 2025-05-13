@@ -5,9 +5,8 @@ import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { setTripList } from "../redux/state";
 import ListingCard from "../components/ListingCard";
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-
 
 const TripList = () => {
   const user = useSelector((state) => state.user);
@@ -16,7 +15,6 @@ const TripList = () => {
 
   const [loading, setLoading] = useState(true);
   const [expandedTripId, setExpandedTripId] = useState(null);
-
   const tripList = useSelector((state) => state.user?.tripList);
 
   useEffect(() => {
@@ -29,23 +27,30 @@ const TripList = () => {
 
   const getTripList = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/users/${user.id}/trips`, {
+      const response = await fetch(`http://localhost:3001/users/${user._id}/trips`, {
         method: "GET",
         headers: {
           "Cache-Control": "no-cache",
         },
       });
-      const data = await response.json();
-      dispatch(setTripList(data));
-      setLoading(false);
+
+      if (response.ok) {
+        const data = await response.json();
+        dispatch(setTripList(data));
+        setLoading(false);
+      } else {
+        setLoading(false);
+        console.error("Failed to fetch trip list");
+      }
     } catch (err) {
       console.log("Fetch Trip List failed!", err.message);
+      setLoading(false);
     }
   };
 
   const handleCancelTrip = async (tripId) => {
     try {
-      const response = await fetch(`http://localhost:3001/users/${user.id}/trips/${tripId}`, {
+      const response = await fetch(`http://localhost:3001/users/${user._id}/trips/${tripId}`, {
         method: "DELETE",
       });
 
@@ -57,9 +62,6 @@ const TripList = () => {
     }
   };
 
-
-
-
   return loading ? (
     <Loader />
   ) : (
@@ -70,7 +72,7 @@ const TripList = () => {
         {
           tripList?.map(
             ({
-              id,
+              _id,
               listingId,
               hostId,
               startDate,
@@ -79,8 +81,9 @@ const TripList = () => {
               booking = true,
             }) => (
               <ListingCard
-                tripId={id}
-                listingId={listingId}
+                key={_id}
+                tripId={_id}
+                listingId={listingId._id}
                 creator={hostId}
                 listingPhotoPaths={listingId.listingPhotoPaths}
                 city={listingId.city}
@@ -91,13 +94,12 @@ const TripList = () => {
                 endDate={endDate}
                 totalPrice={totalPrice}
                 booking={booking}
-                showCancel={true}
-                onCancel={() => handleCancelTrip(id)}
+                showCancel={true}  
+                onCancel={() => handleCancelTrip(_id)}
                 expandable={true}
-                isExpanded={expandedTripId === id}
-                onToggleExpand={() => setExpandedTripId(prev => prev === id ? null : id)}
+                isExpanded={expandedTripId === _id}  
+                onToggleExpand={() => setExpandedTripId(prev => prev === _id ? null : _id)}
               />
-
             )
           )
         }

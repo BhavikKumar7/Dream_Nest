@@ -1,77 +1,95 @@
 const express = require("express");
-const router = require("express").Router();
-const fs = require("fs").promises;
-const path = require("path");
-const { v4: uuidv4 } = require("uuid");
-
-const dataFilePath = path.join(__dirname, "../data.json");
-
-const loadData = async () => {
-  try {
-    const fileData = await fs.readFile(dataFilePath, "utf-8");
-    return JSON.parse(fileData);
-  } catch (err) {
-    if (err.code === "ENOENT") {
-      const initialData = { users: [], listings: [], bookings: [] };
-      await fs.writeFile(dataFilePath, JSON.stringify(initialData, null, 2));
-      return initialData;
-    } else {
-      throw err;
-    }
-  }
-};
-
-const saveData = async (data) => {
-  try {
-    await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2));
-  } catch (err) {
-    console.error("Error saving booking:", err.message);
-    throw err;
-  }
-};
+const router = express.Router();
+const Booking = require("../models/Booking");
+const User = require("../models/User");
+const Listing = require("../models/Listing");
 
 router.post("/create", async (req, res) => {
   try {
-    const { customerId, hostId, listingId, startDate, endDate, totalPrice } = req.body;
+    const { customerId, listingId, startDate, endDate, totalPrice } = req.body;
 
-    if (!customerId || !hostId || !listingId || !startDate || !endDate || !totalPrice) {
+    if (!customerId || !listingId || !startDate || !endDate || !totalPrice) {
       return res.status(400).json({
         message: "Missing required booking fields.",
         received: req.body,
       });
     }
+    const listing = await Listing.findById(listingId);
+    if (!listing) {
+      return res.status(404).json({ message: "Listing not found." });
+    }
 
-    const data = await loadData();
+    
+    const hostId = listing.creator; 
 
-    const newBooking = {
-      id: uuidv4(),
+    const newBooking = new Booking({
       customerId,
-      hostId,
+      hostId, 
       listingId,
       startDate,
       endDate,
       totalPrice,
-    };
+    });
 
-    data.bookings.push(newBooking);
-    const userIndex = data.users.findIndex((user) => user.id === customerId);
-    if (userIndex !== -1) {
-      if (!Array.isArray(data.users[userIndex].tripList)) {
-        data.users[userIndex].tripList = [];
-      }
-      data.users[userIndex].tripList.push(newBooking);
-    } else {
-      console.warn(`User with id ${customerId} not found.`);
+    const savedBooking = await newBooking.save();
+
+    const customer = await User.findById(customerId);
+    if (!customer) {
+      return res.status(404).json({ message: "Customer not found." });
     }
-    await saveData(data);
 
-    res.status(200).json(newBooking);
+    customer.tripList.push(savedBooking._id);
+    await customer.save();
+
+    res.status(200).json(savedBooking);
   } catch (err) {
     console.error("Booking creation failed:", err.message);
-    res.status(500).json({
-      message: "Internal Server Error. Could not create booking.",
-      error: err.message,
-    });
+    res.status(500).json({ message: "Could not create booking.", error: err.message });
+  }
+});
+
+router.get("/", async (req, res) => {
+  try {
+    const bookings = await Booking.find().populate("customerId hostId listingId");
+    res.status(200).json(bookings);
+  } catch (err) {
+    console.error("Fetching bookings failed:", err.message);
+    res.status(500).json({ message: "Failed to fetch bookings.", error: err.message });
+  }
+});
+
+router.get("/user/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const bookings = await Booking.find({ customerId: userId }).populate("listingId");
+
+    res.status(200).json(bookings);
+  } catch (err) {
+    console.error("Fetching user bookings failed:", err.message);
+    res.status(500).json({ message: "Failed to fetch user bookings.", error: err.message });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const bookingId = req.params.id;
+
+    const booking = await Booking.findById(bookingId);
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found." });
+    }
+
+    await User.findByIdAndUpdate(
+      booking.customerId,
+      { $pull: { tripList: booking._id } }
+    );
+
+    await Booking.findByIdAndDelete(bookingId);
+
+    res.status(200).json({ message: "Booking deleted successfully." });
+  } catch (err) {
+    console.error("Booking deletion failed:", err.message);
+    res.status(500).json({ message: "Failed to delete booking.", error: err.message });
   }
 });
 

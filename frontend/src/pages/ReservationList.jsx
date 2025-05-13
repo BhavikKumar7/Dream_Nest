@@ -5,8 +5,7 @@ import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { setReservationList } from "../redux/state";
 import ListingCard from "../components/ListingCard";
-import Footer from "../components/Footer"
-
+import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
 const ReservationList = () => {
@@ -26,7 +25,7 @@ const ReservationList = () => {
   const getReservationList = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/users/${user.id}/reservations`,
+        `http://localhost:3001/users/${user._id}/reservations`,
         {
           method: "GET",
         }
@@ -41,7 +40,7 @@ const ReservationList = () => {
 
   useEffect(() => {
     getReservationList();
-  }, []);
+  }, [user]);
 
   return loading ? (
     <Loader />
@@ -53,6 +52,7 @@ const ReservationList = () => {
         {
           reservationList?.map(
             ({
+              _id,
               listingId,
               hostId,
               startDate,
@@ -61,8 +61,8 @@ const ReservationList = () => {
               booking = true,
             }) => (
               <ListingCard
-                listingId={listingId.id}
-                creator={hostId.id} 
+                listingId={listingId._id}
+                creator={hostId._id}
                 listingPhotoPaths={listingId.listingPhotoPaths}
                 city={listingId.city}
                 province={listingId.province}

@@ -8,7 +8,6 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch all users
   const fetchUsers = async () => {
     try {
       const response = await fetch("http://localhost:3001/admin/users");
@@ -30,7 +29,7 @@ const UserList = () => {
       });
 
       if (response.ok) {
-        setUsers((prev) => prev.filter((user) => user.id !== userId));
+        setUsers((prev) => prev.filter((user) => user._id !== userId));
       } else {
         console.error("Failed to delete user");
       }
@@ -43,7 +42,6 @@ const UserList = () => {
     navigate(`/admin/users/${userId}/bookings`);
   };
 
-  // Filter users to exclude those with role 'host'
   const filteredUsers = users.filter((user) => user.role !== "host");
 
   return (
@@ -53,13 +51,13 @@ const UserList = () => {
       <div className="list">
         {filteredUsers.length > 0 ? (
           filteredUsers.map((user) => (
-            <div key={user.id} className="user-card">
+            <div key={user._id} className="user-card">
               <h3>{user.firstName} {user.lastName}</h3>
               <p>Email: {user.email}</p>
               <p>Role: {user.role}</p>
               <div className="admin-buttons">
-                <button onClick={() => handleViewBookings(user.id)}>View Bookings</button>
-                <button onClick={() => handleDelete(user.id)}>Delete User</button>
+                <button onClick={() => handleViewBookings(user._id)}>View Bookings</button>
+                <button onClick={() => handleDelete(user._id)}>Delete User</button>
               </div>
             </div>
           ))

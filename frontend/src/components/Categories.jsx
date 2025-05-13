@@ -1,10 +1,10 @@
 import { categories } from "../data";
-import "../styles/Categories.scss"
+import "../styles/Categories.scss";
 import { Link } from "react-router-dom";
 
 const Categories = () => {
   return (
-    <div className="categories">
+    <section className="categories">
       <h1>Explore Top Categories</h1>
       <p>
         Explore our wide range of vacation rentals that cater to all types of
@@ -13,10 +13,18 @@ const Categories = () => {
       </p>
 
       <div className="categories_list">
-        {categories?.slice(1, 7).map((category, index) => (
-          <Link to={`/properties/category/${category.label}`}>
-            <div className="category" key={index}>
-              <img src={category.img} alt={category.label} />
+        {categories?.slice(1, 7).map((category) => (
+          <Link
+            to={`/properties/category/${category.label}`}
+            key={category.label}
+            aria-label={`Explore ${category.label} listings`}
+          >
+            <div className="category">
+              <img
+                src={category.img}
+                alt={category.label || "Category"}
+                loading="lazy"
+              />
               <div className="overlay"></div>
               <div className="category_text">
                 <div className="category_text_icon">{category.icon}</div>
@@ -26,7 +34,7 @@ const Categories = () => {
           </Link>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

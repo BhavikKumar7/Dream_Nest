@@ -27,7 +27,7 @@ const SearchPage = () => {
 
   const getSearchListings = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/properties/search/${search}`, {
+      const response = await fetch(`http://localhost:3001/api/properties/search/${search}`, {
         method: "GET",
       });
 
@@ -52,18 +52,18 @@ const SearchPage = () => {
   return loading ? (
     <Loader />
   ) : error ? (
-    <div className="error-message">{error}</div> // Display error if any
+    <div className="error-message">{error}</div> 
   ) : (
     <>
       <Navbar />
-      <h1 className="title-list">{search}</h1>
+      <h1 className="title-list">Search results for "{search}"</h1>
       <div className="list">
         {listings?.length === 0 ? (
           <p>No listings found matching your search criteria.</p>
         ) : (
           listings?.map(
             ({
-              id,
+              _id,
               creator,
               listingPhotoPaths,
               city,
@@ -75,8 +75,8 @@ const SearchPage = () => {
               booking = false,
             }) => (
               <ListingCard
-                key={id}
-                listingId={id}
+                key={_id} 
+                listingId={_id}
                 creator={creator}
                 listingPhotoPaths={listingPhotoPaths}
                 city={city}

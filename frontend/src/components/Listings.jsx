@@ -9,12 +9,12 @@ import { setListings } from "../redux/state";
 const Listings = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const listings = useSelector((state) => state.listings);
 
   const getFeedListings = async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         selectedCategory !== "All"
@@ -26,10 +26,11 @@ const Listings = () => {
       );
 
       const data = await response.json();
-      dispatch(setListings({ listings: data}));
-      setLoading(false);
+      dispatch(setListings({ listings: data }));
     } catch (err) {
       console.log("Fetch Listings Failed", err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,35 +57,34 @@ const Listings = () => {
         <Loader />
       ) : (
         <div className="listings">
-          {
-  listings.map(
-    ({
-      id,
-      creator,
-      listingPhotoPaths,
-      city,
-      province,
-      country,
-      category,
-      type,
-      price,
-      booking = false,
-    }) => (
-      <ListingCard
-        listingId={id}
-        creator={creator}
-        listingPhotoPaths={listingPhotoPaths}
-        city={city}
-        province={province}
-        country={country}
-        category={category}
-        type={type}
-        price={price}
-        booking={booking}
-      />
-    )
-  )
-}
+          {listings.map(
+            ({
+              _id,
+              creator,
+              listingPhotoPaths = [],
+              city,
+              province,
+              country,
+              category,
+              type,
+              price,
+              booking = false,
+            }) => (
+              <ListingCard
+                key={_id}
+                listingId={_id}
+                creator={creator}
+                listingPhotoPaths={listingPhotoPaths}
+                city={city}
+                province={province}
+                country={country}
+                category={category}
+                type={type}
+                price={price}
+                booking={booking}
+              />
+            )
+          )}
         </div>
       )}
     </>
